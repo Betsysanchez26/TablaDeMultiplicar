@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     resultado+= a+"X"+i+"="+(a*i)+"\n";
                 }
                 salida.setText(resultado);
-                calc.hasFocus();
+                
 
             }
         });
