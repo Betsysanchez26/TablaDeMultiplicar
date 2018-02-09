@@ -3,26 +3,35 @@ package com.example.betsysanchez.tablamultiplicar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    EditText caja;
     Button calc;
-    TextView salida;
     SeekBar sb;
     TextView num;
+    ListView salida;
+    ArrayList<String> lista;
+    ArrayAdapter<String> adap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // caja=findViewById(R.id.editText);
+
         calc=findViewById(R.id.button);
-        salida=findViewById(R.id.salida);
         sb=findViewById(R.id.seekBar);
         num=findViewById(R.id.textView2);
+        lista=new ArrayList<String>();
+        adap=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,lista);
+        salida=findViewById(R.id.list_item);
+        salida.setAdapter(adap);
+
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -44,16 +53,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int a=Integer.parseInt(num.getText().toString());
-
-               // int a=Integer.parseInt(caja.getText().toString());
-                String resultado="";
-
+                lista.clear();
+                adap.notifyDataSetChanged();
                 for(int i=1;i<=30;i++){
-                    resultado+= a+"X"+i+"="+(a*i)+"\n";
+                    lista.add(a+"X"+i+"="+(a*i));
+                    adap.notifyDataSetChanged();
                 }
-                salida.setText(resultado);
-
-
             }
         });
     }
