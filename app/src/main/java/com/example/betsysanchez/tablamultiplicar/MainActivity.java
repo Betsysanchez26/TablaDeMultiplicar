@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button calc;
+    //Button calc;
     SeekBar sb;
     TextView num;
     ListView salida;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calc=findViewById(R.id.button);
+        //calc=findViewById(R.id.button);
         sb=findViewById(R.id.seekBar);
         num=findViewById(R.id.textView2);
         lista=new ArrayList<String>();
@@ -35,8 +35,15 @@ public class MainActivity extends AppCompatActivity {
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                int a=sb.getProgress();
-                num.setText(a+"");
+                int n=sb.getProgress();
+                num.setText(n+"");
+                int a=Integer.parseInt(num.getText().toString());
+                lista.clear();
+                adap.notifyDataSetChanged();
+                for(int j=1;j<=30;j++){
+                    lista.add(a+"X"+j+"="+(a*j));
+                    adap.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -49,17 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        calc.setOnClickListener(new View.OnClickListener() {
+        /*calc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a=Integer.parseInt(num.getText().toString());
-                lista.clear();
-                adap.notifyDataSetChanged();
-                for(int i=1;i<=30;i++){
-                    lista.add(a+"X"+i+"="+(a*i));
-                    adap.notifyDataSetChanged();
-                }
+
             }
-        });
+        });*/
     }
 }
